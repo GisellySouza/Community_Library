@@ -5,10 +5,10 @@ app.use(express.json());
 const users = []
 
 
-//toda API tem
+//Toda API tem
 
 //Método (GET, POST, PUT, PATCH, DELETE)
-//Name (/+nome no plural)
+//Nome da rota {Exemplo: (/users)} (vai abrir em => http:localhost:300//users)
 // Callback funcions (Onde executamos o backend (lógica, regras de negócio))
 
 
@@ -16,15 +16,15 @@ const users = []
 app.post('/users', (req, res) => {
     const body = req.body
     users.push(body)
-    res.status(201)
+    res.status(201).send("usuário criado com sucesso")
 });
 
 app.get('/users', (req,res) => {
-    res.json()
+    res.send({message: "Nomes dos usuarios", users})
 })
 
 
-
+//porta onde a rota vai abrir
 app.listen(3000, () => {
     console.log("Server is Running on port 3000");
 });
