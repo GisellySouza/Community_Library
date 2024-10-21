@@ -13,7 +13,7 @@ db.run(`
 //Padrão de criação de Tabela em SQL, palavras reservadas em maiusculo e cradas em minusculos
 
 function createUserRepository(newUser){
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         const {username, email, password, avatar}= newUser;
         db.run(
             `
@@ -23,9 +23,9 @@ function createUserRepository(newUser){
             [username, email, password, avatar],
             (err) => {
                 if (err) {
-                    rej(err)
+                    reject(err)
                 } else {
-                    res({message:'User created'})
+                    resolve({id: this.lastID, ...newUser})
                 }
             }
         );
