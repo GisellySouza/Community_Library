@@ -1,5 +1,5 @@
 
-import userRepository from "../repositories/users.repositories.js";
+import userRepository from "../repositories/user.repositories.js";
 
 async function createUserService(newUser){
     const user = await userRepository.createUserRepository(newUser)
