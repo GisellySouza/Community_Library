@@ -89,29 +89,7 @@ function findAllUsersRepository() {
     });
 }
 
-function updateUserRepository(id, user) {
-    return new Promise((resolve, reject)=>{
-        const {username, email, password, avatar} = user
-        db.run(`
-            UPDATE users SET 
-            username= ?,
-            email=?,
-            password =?,
-            avatar =?
-            WHERE id = ? 
-            `,
-            [username, email, password, avatar, id],
-             (err) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({ id, ...user });
-                }            
-            }
-        )
-    })
 
-}
 
 function deleteUserRepository(id) {
     return new Promise((resolve, reject)=>{
@@ -128,6 +106,38 @@ function deleteUserRepository(id) {
                     resolve({ message :" User deleted sucsessfully", id });
                 }            
             })
+    })
+
+}
+
+function updateUserRepository(id, user) {
+    return new Promise((resolve, reject)=>{
+        const fields = ['username', 'email', 'password', 'avatar']; 
+        let query = "UPDATE users SET";
+        const values = [];
+
+
+            //forEach é uma HOF (higher-order function)
+        fields.forEach((field) =>{
+            if (user[field] !== undefined) {
+                query += ` ${field} = ?,`;
+                values.push(user[field]);
+            }
+        });
+
+        query = query.slice(0, -1);
+
+        query += " WHERE id = ?";
+        values.push(id);
+
+        db.run(query, values, (err)=> {
+             if (err){
+                reject(err);
+             } else {
+                resolve({...user, id});
+             }
+        })
+
     })
 
 }

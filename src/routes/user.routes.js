@@ -12,7 +12,7 @@ router.get('/users', userController.findAllUsersController);
 //rota com parametro id, retorna o id
 router.get('/users/:id', validateUserId, userController.findUserByIdController);
 
-router.put('/users/:id', validate(userSchema), validateUserId, userController.updateUserController);
+router.patch('/users/:id', validateUserId, userController.updateUserController);
 
 router.delete('/users/:id', validateUserId, userController.deleteUserController);
 
