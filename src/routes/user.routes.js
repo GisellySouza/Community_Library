@@ -8,6 +8,8 @@ const router = Router();
 //chegou na rota, passa pelo middlewares pra validar, e vai para o controller
 router.post('/users', validate (userSchema), userController.createUserController);
 
+router.post('/users/login', userController.loginUserController);
+
 router.get('/users', userController.findAllUsersController);
 //rota com parametro id, retorna o id
 router.get('/users/:id', validateUserId, userController.findUserByIdController);
