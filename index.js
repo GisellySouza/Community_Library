@@ -1,7 +1,9 @@
 import express from "express";
 import userRouters from './src/routes/user.routes.js';
+import "dotenv/config"
 const app = express();
 
+const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(userRouters)
 //const users = []
@@ -25,6 +27,6 @@ app.use(userRouters)
 
 
 //porta onde a rota vai abrir
-app.listen(3000, () => {
-    console.log("Server is Running on port 3000");
+app.listen(port, () => {
+    console.log(`Server is Running on port ${port}`);
 });
