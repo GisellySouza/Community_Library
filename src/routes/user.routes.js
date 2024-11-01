@@ -2,6 +2,7 @@ import {Router} from "express";
 import userController from "../controller/user.controllers.js";
 import { validate, validateUserId } from '../middlewares/validation.meddlewares.js'
 import {userSchema} from '../schema/user.schema.js'
+import { authMeddleware } from "../middlewares/auth.meddlewarres.js";
 
 const router = Router();
 
@@ -9,6 +10,10 @@ const router = Router();
 router.post('/users', validate (userSchema), userController.createUserController);
 
 router.post('/users/login', userController.loginUserController);
+
+
+//regras do meddleware validas para todas as rotas abaixo
+router.use(authMeddleware);
 
 router.get('/users', userController.findAllUsersController);
 //rota com parametro id, retorna o id

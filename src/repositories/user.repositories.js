@@ -1,6 +1,6 @@
 import db from "../config/database.js";
 
-//``(query SQL) é uma conceito de JS de Taeplate strings podendo inserir variáveis dentro do string
+//``(query SQL) é uma conceito de JS de Tamplate strings podendo inserir variáveis dentro do string
 db.run(`
     CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
