@@ -3,26 +3,29 @@ import db from "../config/database.js";
 //``(query SQL) é uma conceito de JS de Tamplate strings podendo inserir variáveis dentro do string
 db.run(`
     CREATE TABLE IF NOT EXISTS books (
-    title TEXT UNIQUE NOT NULL,
-    author TEXT  NOT NULL,
-    userId INTEGER UNIQUE NOT NULL
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    author TEXT NOT NULL,
+    userId INTEGER,
+    FOREIGN KEY (userId) REFERENCES users(id)
     )
 `);
 
-function createBookRepository(newBook, userId){
+function createBookRepository(newBook, userId) {
     return new Promise((resolve, reject) => {
-        const { title, author }= newBook;
+        const {title, author } = newBook;
+        
         db.run(
             `
             INSERT INTO books (title, author, userId)
-            VALUES (?, ?, ?, ?)
+            VALUES (?, ?, ?)
             `,
             [title, author, userId],
             function (err) {
                 if (err) {
-                    reject(err)
+                    reject(err);
                 } else {
-                    resolve({id: this.lastID, ...newBook})
+                    resolve({id: this.lastID, ...newBook});
                 }
             }
         );

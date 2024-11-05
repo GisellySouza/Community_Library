@@ -5,10 +5,10 @@ async function createBookController(req, res) {
     const userId = req.userId;
     
     try {
-        const createdBook = await bookservice.createbookService (newBook, userId);
+        const createdBook = await bookservice.createBookService (newBook, userId);
         res.status(201).send({ createdBook })
-    }catch (e) {
-        res.status(400).send(e.message);
+    }catch (error) {
+        res.status(400).send(error.message);
     }
 
 }

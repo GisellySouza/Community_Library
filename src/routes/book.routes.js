@@ -5,11 +5,13 @@ import { validate } from "../middlewares/validation.meddlewares.js";
 import { bookSchema } from "../schema/book.schema.js";
 
 
-const router = Router;
+const router = Router();
 
-router.post('/books', bookController.createBookController )
+router.get("/books", bookController.findAllBooksController);
+
 
 router.use(authMeddleware);
-router.get ('/books', validate(bookSchema) ,bookController.findAllBooksController)
+router.post("/books", validate(bookSchema),  bookController.createBookController )
+
 
 export default router;
